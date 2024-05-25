@@ -9,7 +9,7 @@ int menuFunc()
 {
     int menuOps;
 
-    printf("\n||----------------||\n||      MENU      ||\n||                ||\n||ENTRADA       1 ||\n||SAï¿½DA         2 ||\n||GERENCIAR     3 ||\n||                ||\n||FECHAR        0 ||\n||----------------||\n\n");
+    printf("\n||----------------||\n||      MENU      ||\n||                ||\n||ENTRADA       1 ||\n||SAÍDA         2 ||\n||GERENCIAR     3 ||\n||                ||\n||FECHAR        0 ||\n||----------------||\n\n");
     scanf("%i",&menuOps);
 
     return menuOps;
@@ -36,7 +36,7 @@ int main()
         }
         else if(menuOps==3)
         {
-            gerenciamento();    //Deve conter um menu com as opï¿½ï¿½es Cadastrar, Vagas, Planos e Relatï¿½rios.
+            gerenciamento();    //Deve conter um menu com as opções Cadastrar, Vagas, Planos e Relatórios.
         }
         else if(menuOps==0)
         {
