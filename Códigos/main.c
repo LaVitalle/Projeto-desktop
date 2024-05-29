@@ -92,7 +92,7 @@ void menuClientes()
 
     while(opc==5)
     {
-        printf("\nCADASTRAR CLIENTE _1_\nEDITAR PLANO _2_\nREMOVER CADASTRO _3_\nVIZUALIZAR CLIENTES _4_\nVOLTAR _0_\n");
+        printf("\nCADASTRAR CLIENTE _1_\nEDITAR PLANO _2_\nREMOVER CADASTRO _3_\nVISUALIZAR CLIENTES _4_\nVOLTAR _0_\n");
         scanf("%i", &opc);
         if(opc!=0 && opc!=1 && opc!=2 && opc!=3 && opc!=4){printf("\nERRO!!\n"); opc=5;}
     }
@@ -122,7 +122,7 @@ void menuPlanos()
 
     while(opc==5)
     {
-        printf("\nVIZUALIZAR PLANOS _1_\nEDITAR PLANOS _2_\nCADASTRAR PLANOS _3_\nREMOVER PLANOS _4_\nVOLTAR _0_\n");
+        printf("\nVISUALIZAR PLANOS _1_\nEDITAR PLANOS _2_\nCADASTRAR PLANOS _3_\nREMOVER PLANOS _4_\nVOLTAR _0_\n");
         scanf("%i", &opc);
         if(opc!=0 && opc!=1 && opc!=2 && opc!=3 && opc!=4){printf("\nERRO!!\n"); opc=5;}
     }
