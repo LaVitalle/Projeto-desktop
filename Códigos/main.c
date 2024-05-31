@@ -5,6 +5,30 @@
 #include <stdlib.h>
 #include <string.h>
 
+//Var Global
+    struct cliente {char cpfCliente[12]; char placaCarro[8]; int idPlanoCliente;}; typedef struct cliente cliente;
+    struct plano {int idPlano; int descontoPlano;}; typedef struct plano plano;
+
+    int vagasTotais=0, vagasOcupadas=0;
+//Fim Var Global
+
+//Funções relacionadas a planos
+void regPlano();
+//Fim das funções relacionadas a planos
+
+//Funções relacionadas a vagas
+void testeVagas();
+void atualizarVagas();
+//Fim das funções relacionadas a vagas
+
+//Funções relacionadas a clientes
+void regCliente();
+//Fim das funções relacionadas a clientes
+
+//Funções relacionadas a entrada
+void entradaSemCad();
+//Fim das funções relacionadas a entrada
+
 int menuFunc()
 {
     int menuOps;
@@ -97,6 +121,23 @@ void menuClientes()
         if(opc!=0 && opc!=1 && opc!=2 && opc!=3 && opc!=4){printf("\nERRO!!\n"); opc=5;}
     }
 
+    if(opc==1)
+    {
+        regCliente();
+    }
+    else if(opc==2)
+    {
+        //editar plano de cliente
+    }
+    else if(opc==3)
+    {
+        //remover cadastro
+    }
+    else if(opc==4)
+    {
+        //vizualizar clientes
+    }
+
     return;
 }
 
@@ -112,6 +153,15 @@ void menuVagas()
         if(opc!=0 && opc!=1 && opc!=2){printf("\nERRO!!\n"); opc=3;}
     }
 
+    if(opc==1)
+    {
+        atualizarVagas();
+    }
+    else if(opc==2)
+    {
+        //visualizar vagas
+    }
+
     return;
 }
 
@@ -125,6 +175,23 @@ void menuPlanos()
         printf("\nVISUALIZAR PLANOS _1_\nEDITAR PLANOS _2_\nCADASTRAR PLANOS _3_\nREMOVER PLANOS _4_\nVOLTAR _0_\n");
         scanf("%i", &opc);
         if(opc!=0 && opc!=1 && opc!=2 && opc!=3 && opc!=4){printf("\nERRO!!\n"); opc=5;}
+    }
+
+    if(opc==1)
+    {
+        //visualizar planos
+    }
+    else if(opc==2)
+    {
+        //editar planos
+    }
+    else if(opc==3)
+    {
+        regPlano();
+    }
+    else if(opc==4)
+    {
+        //remover planos
     }
 
     return;
@@ -150,6 +217,8 @@ int main()
     setlocale(LC_ALL, "Portuguese");
 
     int menu=0, menuOps;
+
+    testeVagas();
 
     while(menu==0)
     {
@@ -178,3 +247,188 @@ int main()
     return 0;
 
 }
+
+//Definição de funções relacionadas a planos
+void regPlano()
+{
+
+    plano regisPlano = {0, 0};
+
+    printf("Escolha um identificador para o plano\nO identificador deve ser entre 1 a 99\n");
+    scanf("%d", &regisPlano.idPlano);
+
+    system("cls");
+
+    printf("Qual o desconto seu plano irá ofertar?\n");
+    scanf("%d", &regisPlano.descontoPlano);
+
+    system("cls");
+
+    FILE *f;
+    f = fopen("..\\..\\server\\server.txt", "a");
+    if(f==NULL){printf("ERRO!!");}
+
+    fprintf(f, "%i", regisPlano.idPlano);
+    fprintf(f, " ");
+    fprintf(f, "%i", regisPlano.descontoPlano);
+    fprintf(f, "\n");
+
+    fclose(f);
+
+    return;
+}
+//Fim das funções relacionadas a planos
+
+//Definição de funções relacionadas a clientes
+void regCliente()
+{
+
+    cliente regisCliente;
+    char arquivoPlaca[13];
+
+    system("cls");
+
+    printf("\nDigite o CPF para cadastro: ");
+    scanf("%s", &regisCliente.cpfCliente);
+    
+    fflush(stdin);
+    system("cls");
+
+    printf("\nDigite a placa do carro para cadastro: ");
+    scanf("%s", &regisCliente.placaCarro);
+
+    fflush(stdin);
+    system("cls");
+
+    printf("\nDigite o identificador do plano do cliente para cadastro (Digite 0 para padrão): ");
+    scanf("%i", &regisCliente.idPlanoCliente);
+
+    system("cls");
+
+    snprintf(arquivoPlaca, sizeof(arquivoPlaca), "%s.txt", regisCliente.placaCarro);
+
+    FILE *f;
+    f = fopen(arquivoPlaca, "w");
+    if(f==NULL){printf("ERRO!!");}
+
+    fprintf(f, "%s", regisCliente.cpfCliente);
+    fprintf(f, " ");
+    fprintf(f, "%i", regisCliente.idPlanoCliente);
+
+    fclose(f);
+
+    return;
+}
+//Fim das funções relacionadas a clientes
+
+//Definição de funções relacionadas a vagas
+void testeVagas()
+{
+
+    int checkPrimeiraAbertura=100;
+
+    FILE *f;
+    f = fopen("..\\..\\server\\vagas.txt", "r");
+    if(f==NULL){printf("ERRO!!");}
+
+    fscanf(f, "%i %i", &vagasTotais, &checkPrimeiraAbertura);
+
+    fclose(f);
+
+    if (vagasTotais==50 && checkPrimeiraAbertura==0)
+    {
+
+        int op=0;
+
+        while (op==0)
+        {
+        
+            printf("\nEsta é a sua primeira vez abrindo o nosso sistema!!\nPor padrão definimos 50 vagas de capacidade no estacionamento.\n\nGostaria de alterar esse valor? 1/sim e 2/não\n");
+            scanf("%i", &op);
+            
+            if(op==1)
+            {
+
+                FILE *f;
+                f = fopen("..\\..\\server\\vagas.txt", "w");
+                if(f==NULL){printf("ERRO!!");}
+
+                printf("\nQuantas vagas seu estacionamento possui: ");
+                scanf("%i", &vagasTotais);
+
+                fprintf(f, "%i %i", vagasTotais, 1);
+
+                fclose(f);
+
+            }
+            else if(op==2)
+            {
+                
+                FILE *f;
+                f = fopen("..\\..\\server\\vagas.txt", "w");
+                if(f==NULL){printf("ERRO!!");}
+
+                fprintf(f, "%i %i", 50, 1);
+
+                fclose(f);
+
+            }
+            else
+            { 
+                
+                system("cls");
+                op=0;
+
+            }
+        }
+    }
+    else
+    {
+        printf("\nVagas Totais: %i\n", vagasTotais);
+    }
+
+    return;
+}
+
+void atualizarVagas()
+{
+
+    system("cls");
+
+    printf("Atualmente seu estacionamento conta com %i vagas.\nQuantas vagas você deseja utilizar: ", vagasTotais);
+    scanf("%i", &vagasTotais);
+
+    FILE *f;
+    f = fopen("..\\..\\server\\vagas.txt", "w");
+    if(f==NULL){printf("ERRO!!");}
+
+    fprintf(f, "%i %i", vagasTotais, 1);
+
+    fclose(f);
+
+    return;
+}
+//Fim das funções relacionadas a vagas
+
+//Definição de funções relacionadas a entrada/saída
+void entradaSemCad()
+{
+
+}
+
+void saidaSemCad()
+{
+
+}
+
+void entradaCad()
+{
+
+}
+
+void saidaCad()
+{
+
+}
+
+//Fim das funções relacionadas a entrada/saída
