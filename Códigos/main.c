@@ -6,7 +6,7 @@
 #include <string.h>
 
 //Var Global
-    struct cliente {char cpfCliente[12]; char placaCarro[8]; int idPlanoCliente;}; typedef struct cliente cliente;
+    struct cliente {char cpfCliente[11]; char placaCarro[8]; int idPlanoCliente; int status;}; typedef struct cliente cliente;
     struct plano {int idPlano; int descontoPlano;}; typedef struct plano plano;
 
     int vagasTotais=0, vagasOcupadas=0;
@@ -27,6 +27,7 @@ void regCliente();
 
 //Funções relacionadas a entrada
 void entradaSemCad();
+void entradaCad();
 //Fim das funções relacionadas a entrada
 
 int menuFunc()
@@ -49,6 +50,15 @@ void entrada()
         printf("\nCLIENTE NÃO CADASTRADO _1_\nCLIENTE CADASTRADO _2_\nVOLTAR _0_\n");
         scanf("%i", &opc);
         if(opc!=0 && opc!=1 && opc!=2){printf("\nERRO!!\n"); opc=3;}
+    }
+
+    if(opc==1)
+    {
+        entradaSemCad();
+    }
+    else if(opc==2)
+    {
+        entradaCad();
     }
 
     return;
@@ -285,6 +295,7 @@ void regCliente()
 
     cliente regisCliente;
     char arquivoPlaca[13];
+    regisCliente.status = 0;
 
     system("cls");
 
@@ -314,6 +325,8 @@ void regCliente()
     fprintf(f, "%s", regisCliente.cpfCliente);
     fprintf(f, " ");
     fprintf(f, "%i", regisCliente.idPlanoCliente);
+    fprintf(f, " ");
+    fprintf(f, "%i", regisCliente.status);
 
     fclose(f);
 
@@ -413,17 +426,90 @@ void atualizarVagas()
 //Definição de funções relacionadas a entrada/saída
 void entradaSemCad()
 {
+    
+    system("cls");
 
-}
+    cliente regisCliente;
+    char arquivoPlaca[13];
+    regisCliente.status = 1;
 
-void saidaSemCad()
-{
+    system("cls");
 
+    printf("\nDigite o CPF para cadastro: ");
+    scanf("%s", &regisCliente.cpfCliente);
+    
+    fflush(stdin);
+    system("cls");
+
+    printf("\nDigite a placa do carro para cadastro: ");
+    scanf("%s", &regisCliente.placaCarro);
+
+    fflush(stdin);
+    system("cls");
+
+    printf("\nDigite o identificador do plano do cliente para cadastro (Digite 0 para padrão): ");
+    scanf("%i", &regisCliente.idPlanoCliente);
+
+    system("cls");
+
+    snprintf(arquivoPlaca, sizeof(arquivoPlaca), "%s.txt", regisCliente.placaCarro);
+
+    FILE *f;
+    f = fopen(arquivoPlaca, "w");
+    if(f==NULL){printf("ERRO!!");}
+
+    fprintf(f, "%s", regisCliente.cpfCliente);
+    fprintf(f, " ");
+
+    fprintf(f, "%i", regisCliente.idPlanoCliente);
+    fprintf(f, " ");
+
+    fprintf(f, "%i", regisCliente.status);
+    fprintf(f, " ");
+
+    fputc(__TIME__[0],f);
+    fputc(__TIME__[1],f);
+    fputs(" ", f);
+    fputc(__TIME__[3],f);
+    fputc(__TIME__[4],f);
+    fputs(" ", f);
+    fputc(__TIME__[6],f);
+    fputc(__TIME__[7],f);
+
+    fclose(f);
+
+    return;
 }
 
 void entradaCad()
 {
 
+    system("cls");
+
+    cliente clientry;
+    char arquivoPlaca[13];
+    
+    printf("\nDigite a placa do cliente: ");
+    scanf("%s", &clientry.placaCarro);
+    fflush(stdin);
+
+    snprintf(arquivoPlaca, sizeof(arquivoPlaca), "%s.txt", clientry.placaCarro);
+
+    FILE *f;
+    f = fopen(arquivoPlaca, "r");
+    if(f==NULL){printf("ERRO!!");}
+
+    fscanf(f, "%s", clientry.cpfCliente);
+    fscanf(f, "%i", &clientry.idPlanoCliente);
+    fscanf(f, "%i", &clientry.status);
+
+    printf("%s\n%s\n%i\n%i\n", clientry.placaCarro, clientry.cpfCliente, clientry.idPlanoCliente, clientry.status);
+
+    //in progress
+
+    fclose(f);
+
+    return;
 }
 
 void saidaCad()
