@@ -6,11 +6,18 @@
 #include <string.h>
 
 //Var Global
-    struct cliente {char cpfCliente[11]; char placaCarro[8]; int idPlanoCliente; int status;}; typedef struct cliente cliente;
+    struct cliente {char cpfCliente[12]; char placaCarro[9]; int idPlanoCliente; int status;}; typedef struct cliente cliente;
     struct plano {int idPlano; int descontoPlano;}; typedef struct plano plano;
 
     int vagasTotais=0, vagasOcupadas=0;
 //Fim Var Global
+
+//Funções de menu
+void menuClientes();
+void menuVagas();
+void menuPlanos();
+void menuRelatorios();
+//Fim funções de menu
 
 //Funções relacionadas a planos
 void regPlano();
@@ -25,10 +32,11 @@ void atualizarVagas();
 void regCliente();
 //Fim das funções relacionadas a clientes
 
-//Funções relacionadas a entrada
+//Funções relacionadas a entrada/saída
 void entradaSemCad();
 void entradaCad();
-//Fim das funções relacionadas a entrada
+void saida();
+//Fim das funções relacionadas a entrada/saída
 
 int menuFunc()
 {
@@ -43,37 +51,24 @@ int menuFunc()
 void entrada()
 {
 
+    system("cls");
+
     int opc=3;
 
     while(opc==3)
     {
-        printf("\nCLIENTE NÃO CADASTRADO _1_\nCLIENTE CADASTRADO _2_\nVOLTAR _0_\n");
+        printf("\n||---------------------------||\n||          ENTRADA          ||\n||                           ||\n||CLIENTE CADASTRADO       1 ||\n||CLIENTE NÃO CADASTRADO   2 ||\n||                           ||\n||VOLTAR                   0 ||\n||---------------------------||\n\n");
         scanf("%i", &opc);
         if(opc!=0 && opc!=1 && opc!=2){printf("\nERRO!!\n"); opc=3;}
     }
 
     if(opc==1)
     {
-        entradaSemCad();
+        entradaCad();
     }
     else if(opc==2)
     {
-        entradaCad();
-    }
-
-    return;
-}
-
-void saida()
-{
-
-    int opc=3;
-
-    while(opc==3)
-    {
-        printf("\nCLIENTE NÃO CADASTRADO _1_\nCLIENTE CADASTRADO _2_\nVOLTAR _0_\n");
-        scanf("%i", &opc);
-        if(opc!=0 && opc!=1 && opc!=2){printf("\nERRO!!\n"); opc=3;}
+        entradaSemCad();
     }
 
     return;
@@ -255,7 +250,6 @@ int main()
     }
 
     return 0;
-
 }
 
 //Definição de funções relacionadas a planos
@@ -299,14 +293,14 @@ void regCliente()
 
     system("cls");
 
-    printf("\nDigite o CPF para cadastro: ");
-    scanf("%s", &regisCliente.cpfCliente);
+    printf("\nDigite a placa do carro para cadastro: ");
+    scanf("%8s", regisCliente.placaCarro);
     
     fflush(stdin);
     system("cls");
 
-    printf("\nDigite a placa do carro para cadastro: ");
-    scanf("%s", &regisCliente.placaCarro);
+    printf("\nDigite o CPF para cadastro: ");
+    scanf("%11s", regisCliente.cpfCliente);
 
     fflush(stdin);
     system("cls");
@@ -314,6 +308,7 @@ void regCliente()
     printf("\nDigite o identificador do plano do cliente para cadastro (Digite 0 para padrão): ");
     scanf("%i", &regisCliente.idPlanoCliente);
 
+    fflush(stdin);
     system("cls");
 
     snprintf(arquivoPlaca, sizeof(arquivoPlaca), "%s.txt", regisCliente.placaCarro);
@@ -433,16 +428,14 @@ void entradaSemCad()
     char arquivoPlaca[13];
     regisCliente.status = 1;
 
-    system("cls");
-
-    printf("\nDigite o CPF para cadastro: ");
-    scanf("%s", &regisCliente.cpfCliente);
+    printf("\nDigite a placa do carro para cadastro: ");
+    scanf("%8s", regisCliente.placaCarro);
     
     fflush(stdin);
     system("cls");
 
-    printf("\nDigite a placa do carro para cadastro: ");
-    scanf("%s", &regisCliente.placaCarro);
+    printf("\nDigite o CPF para cadastro: ");
+    scanf("%11s", regisCliente.cpfCliente);
 
     fflush(stdin);
     system("cls");
@@ -450,6 +443,7 @@ void entradaSemCad()
     printf("\nDigite o identificador do plano do cliente para cadastro (Digite 0 para padrão): ");
     scanf("%i", &regisCliente.idPlanoCliente);
 
+    fflush(stdin);
     system("cls");
 
     snprintf(arquivoPlaca, sizeof(arquivoPlaca), "%s.txt", regisCliente.placaCarro);
@@ -478,6 +472,10 @@ void entradaSemCad()
 
     fclose(f);
 
+    system("cls");
+    printf("\n\n\n\n\nENTRADA REGISTRADA COM SUCESSO.\n\n\n\n\n");
+    system("pause");
+
     return;
 }
 
@@ -490,7 +488,7 @@ void entradaCad()
     char arquivoPlaca[13];
     
     printf("\nDigite a placa do cliente: ");
-    scanf("%s", &clientry.placaCarro);
+    scanf("%s", clientry.placaCarro);
     fflush(stdin);
 
     snprintf(arquivoPlaca, sizeof(arquivoPlaca), "%s.txt", clientry.placaCarro);
@@ -503,16 +501,34 @@ void entradaCad()
     fscanf(f, "%i", &clientry.idPlanoCliente);
     fscanf(f, "%i", &clientry.status);
 
-    printf("%s\n%s\n%i\n%i\n", clientry.placaCarro, clientry.cpfCliente, clientry.idPlanoCliente, clientry.status);
+    fclose(f);
 
-    //in progress
+    clientry.status = 1;
+
+    f = fopen(arquivoPlaca, "w");
+    if(f==NULL){printf("ERRO!!");}
+
+    fprintf(f, "%s %i %i", clientry.cpfCliente, clientry.idPlanoCliente, clientry.status);
+    fputs(" ", f);
+    fputc(__TIME__[0],f);
+    fputc(__TIME__[1],f);
+    fputs(" ", f);
+    fputc(__TIME__[3],f);
+    fputc(__TIME__[4],f);
+    fputs(" ", f);
+    fputc(__TIME__[6],f);
+    fputc(__TIME__[7],f);
 
     fclose(f);
+
+    system("cls");
+    printf("\n\n\n\n\nENTRADA REGISTRADA COM SUCESSO.\n\n\n\n\n");
+    system("pause");
 
     return;
 }
 
-void saidaCad()
+void saida()
 {
 
 }
