@@ -9,7 +9,13 @@
     struct cliente {char cpfCliente[12]; char placaCarro[9]; int idPlanoCliente; int status;}; typedef struct cliente cliente;
     struct plano {int idPlano; int descontoPlano;}; typedef struct plano plano;
 
+    cliente clienteSaindo;
+    plano planoSaindo;
+
+    int horaEntrada, minEntrada, segEntrada, horaSaida, minSaida, segSaida;
+
     int vagasTotais=0, vagasOcupadas=0;
+    double custoHora=10.0;
 //Fim Var Global
 
 //Funções de menu
@@ -35,6 +41,8 @@ void regCliente();
 //Funções relacionadas a entrada/saída
 void entradaSemCad();
 void entradaCad();
+void horarioDeSaida();
+void calcHora();
 void saida();
 //Fim das funções relacionadas a entrada/saída
 
@@ -343,7 +351,7 @@ void testeVagas()
 
     fclose(f);
 
-    if (vagasTotais==50 && checkPrimeiraAbertura==0)
+    if (checkPrimeiraAbertura==0)
     {
 
         int op=0;
@@ -528,9 +536,120 @@ void entradaCad()
     return;
 }
 
-void saida()
+void horarioDeSaida()
 {
 
+    FILE *f;
+
+        f = fopen ("..\\..\\server\\exit.txt","w");
+        if(f==NULL){printf("ERRO!!");}
+
+        fputc(__TIME__[0],f);
+        fputc(__TIME__[1],f);
+        fputs(" ", f);
+        fputc(__TIME__[3],f);
+        fputc(__TIME__[4],f);
+        fputs(" ", f);
+        fputc(__TIME__[6],f);
+        fputc(__TIME__[7],f);
+
+        fclose(f);
+
+        f = fopen ("..\\..\\server\\exit.txt","r");
+        if(f==NULL){printf("ERRO!!");}
+
+        fscanf(f,"%i", &horaSaida);
+        fscanf(f,"%i", &minSaida);
+        fscanf(f,"%i", &segSaida);
+
+        fclose(f);
+
+    return;
+}
+
+void clienteExit()
+{
+
+    char arquivoPlaca[13];
+    plano checkPlano;
+
+    printf("\nDigite a placa do cliente: ");
+    scanf("%s", clienteSaindo.placaCarro);
+    fflush(stdin);
+
+    snprintf(arquivoPlaca, sizeof(arquivoPlaca), "%s.txt", clienteSaindo.placaCarro);
+
+    FILE *f;
+    f = fopen(arquivoPlaca, "r");
+    if(f==NULL){printf("ERRO!!");}
+
+    fscanf(f, "%s", clienteSaindo.cpfCliente);
+    fscanf(f, "%i", &clienteSaindo.idPlanoCliente);
+    fscanf(f, "%i", &clienteSaindo.status);
+    fscanf(f, "%i %i %i", &horaEntrada, &minEntrada, &segEntrada);
+
+    fclose(f);
+
+    f = fopen("..\\..\\server\\server.txt", "r");
+    if(f==NULL){printf("ERRO!!");}
+
+    while (checkPlano.idPlano!=clienteSaindo.idPlanoCliente)
+    {
+        fscanf(f, "%i %i", &checkPlano.idPlano, &checkPlano.descontoPlano);
+    }
+
+    planoSaindo.idPlano=checkPlano.idPlano;
+    planoSaindo.descontoPlano=checkPlano.descontoPlano;
+
+    fclose(f);
+
+    return;
+}
+
+void calcHora() //Trabalhando
+{
+
+    int entradaSegundos=0, saidaSegundos=0, estadia=0;
+    double custoSegundo, desconto, descontoDouble, valorPagar;
+
+    descontoDouble = planoSaindo.descontoPlano;
+    desconto = 1 - (descontoDouble/100);
+
+    entradaSegundos = ((horaEntrada*60)*60) + (minEntrada*60) + segEntrada;
+    saidaSegundos = ((horaSaida*60)*60) + (minSaida*60) + segSaida;
+
+    estadia = saidaSegundos-entradaSegundos;
+
+    custoSegundo = custoHora/60/60;
+
+    valorPagar = (estadia*custoSegundo)*desconto;
+
+    printf("\n\nEntrada: %i", entradaSegundos);
+    printf("\nSaida: %i", saidaSegundos);
+    printf("\nEstadia: %i", estadia);
+    printf("\nCusto dos segundos: %lf", custoSegundo);
+    printf("\nDesconto em porcent: %lf", desconto);
+    printf("\nValor total: R$%lf", valorPagar);
+
+    printf("\n");
+
+    return;
+}
+
+void saida() //Trabalhando
+{
+
+    system("cls");
+
+    horarioDeSaida();
+
+    clienteExit();
+
+    calcHora();
+
+    system("Pause");
+
+    return;
 }
 
 //Fim das funções relacionadas a entrada/saída
