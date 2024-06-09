@@ -231,6 +231,8 @@ int main()
 
     int menu=0, menuOps;
 
+    system("cls");
+
     testeVagas();
 
     while(menu==0)
@@ -358,7 +360,7 @@ void testeVagas()
 
         while (op==0)
         {
-        
+
             printf("\nEsta é a sua primeira vez abrindo o nosso sistema!!\nPor padrão definimos 50 vagas de capacidade no estacionamento.\n\nGostaria de alterar esse valor? 1/sim e 2/não\n");
             scanf("%i", &op);
             
@@ -376,6 +378,13 @@ void testeVagas()
 
                 fclose(f);
 
+                system("cls");
+
+                printf("\nQuanto custará a hora hoje?\n");
+                scanf("%lf", &custoHora);
+
+                system("cls");
+
             }
             else if(op==2)
             {
@@ -387,6 +396,13 @@ void testeVagas()
                 fprintf(f, "%i %i", 50, 1);
 
                 fclose(f);
+
+                system("cls");
+
+                printf("\nQuanto custará a hora hoje?\n");
+                scanf("%lf", &custoHora);
+
+                system("cls");
 
             }
             else
@@ -400,6 +416,13 @@ void testeVagas()
     }
     else
     {
+        system("cls");
+
+        printf("\nQuanto custará a hora hoje?\n");
+        scanf("%lf", &custoHora);
+
+        system("cls");
+
         printf("\nVagas Totais: %i\n", vagasTotais);
     }
 
@@ -606,7 +629,7 @@ void clienteExit()
     return;
 }
 
-void calcHora() //Trabalhando
+void calcHora()
 {
 
     int entradaSegundos=0, saidaSegundos=0, estadia=0;
@@ -624,22 +647,21 @@ void calcHora() //Trabalhando
 
     valorPagar = (estadia*custoSegundo)*desconto;
 
-    printf("\n\nEntrada: %i", entradaSegundos);
-    printf("\nSaida: %i", saidaSegundos);
-    printf("\nEstadia: %i", estadia);
-    printf("\nCusto dos segundos: %lf", custoSegundo);
-    printf("\nDesconto em porcent: %lf", desconto);
-    printf("\nValor total: R$%lf", valorPagar);
+    system("cls");
 
-    printf("\n");
+    printf("\n\n\n||------------------------||\n|| CPF: %s       ||\n|| TOTAL A PAGAR: R$%.2lf ||\n||------------------------||", clienteSaindo.cpfCliente, valorPagar);
+
+    printf("\n\n");
 
     return;
 }
 
-void saida() //Trabalhando
+void saida()
 {
 
     system("cls");
+
+    char arquivoPlaca[13];
 
     horarioDeSaida();
 
@@ -647,7 +669,22 @@ void saida() //Trabalhando
 
     calcHora();
 
+    snprintf(arquivoPlaca, sizeof(arquivoPlaca), "%s.txt", clienteSaindo.placaCarro);
+
+    clienteSaindo.status = 0;
+
+    FILE *f;
+
+    f = fopen(arquivoPlaca, "w");
+    if(f==NULL){printf("ERRO!!");}
+
+    fprintf(f, "%s %i %i", clienteSaindo.cpfCliente, clienteSaindo.idPlanoCliente, clienteSaindo.status);
+
+    fclose(f);
+
     system("Pause");
+
+    system("cls");
 
     return;
 }
