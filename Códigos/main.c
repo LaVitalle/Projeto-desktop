@@ -79,11 +79,15 @@ void entrada()
         entradaSemCad();
     }
 
+    system("cls");
+
     return;
 }
 
 void gerenciamento()
 {
+
+    system("cls");
 
     int check=1;
 
@@ -93,7 +97,7 @@ void gerenciamento()
 
         while(opc==5)
         {
-            printf("\nCLIENTES _1_\nVAGAS _2_\nPLANOS _3_\nRELATÓRIOS _4_\nVOLTAR _0_\n");
+            printf("\n||---------------------------||\n||        GERECIAMENTO       ||\n||                           ||\n||CLIENTES                 1 ||\n||VAGAS                    2 ||\n||PLANOS                   3 ||\n||RELATÓRIOS               4 ||\n||                           ||\n||VOLTAR                   0 ||\n||---------------------------||\n\n");
             scanf("%i", &opc);
             if(opc!=0 && opc!=1 && opc!=2 && opc!=3 && opc!=4){printf("\nERRO!!\n"); opc=5;}
         }
@@ -119,17 +123,22 @@ void gerenciamento()
             check=0;
         }
     }
+
+    system("cls");
+
     return;
 }
 
 void menuClientes()
 {
 
+    system("cls");
+
     int opc=5;
 
     while(opc==5)
     {
-        printf("\nCADASTRAR CLIENTE _1_\nEDITAR PLANO _2_\nREMOVER CADASTRO _3_\nVISUALIZAR CLIENTES _4_\nVOLTAR _0_\n");
+        printf("\n||---------------------------||\n||          CLIENTES         ||\n||                           ||\n||CADASTRAR CLIENTE        1 ||\n||EDITAR PLANO             2 ||\n||REMOVER CADASTRO         3 ||\n||VISUALIZAR CLIENTES      4 ||\n||                           ||\n||VOLTAR                   0 ||\n||---------------------------||\n\n");
         scanf("%i", &opc);
         if(opc!=0 && opc!=1 && opc!=2 && opc!=3 && opc!=4){printf("\nERRO!!\n"); opc=5;}
     }
@@ -151,17 +160,21 @@ void menuClientes()
         //vizualizar clientes
     }
 
+    system("cls");
+
     return;
 }
 
 void menuVagas()
 {
 
+    system("cls");
+
     int opc=3;
 
     while(opc==3)
     {
-        printf("\nATUALIZAR VAGAS _1_\nVIZUALIZAR VAGAS _2_\nVOLTAR _0_\n");
+        printf("\n||---------------------------||\n||           VAGAS           ||\n||                           ||\n||ATUALIZAR VAGAS          1 ||\n||VIZUALIZAR VAGAS         2 ||\n||                           ||\n||VOLTAR                   0 ||\n||---------------------------||\n\n");
         scanf("%i", &opc);
         if(opc!=0 && opc!=1 && opc!=2){printf("\nERRO!!\n"); opc=3;}
     }
@@ -175,17 +188,21 @@ void menuVagas()
         //visualizar vagas
     }
 
+    system("cls");
+
     return;
 }
 
 void menuPlanos()
 {
 
+    system("cls");
+
     int opc=5;
 
     while(opc==5)
     {
-        printf("\nVISUALIZAR PLANOS _1_\nEDITAR PLANOS _2_\nCADASTRAR PLANOS _3_\nREMOVER PLANOS _4_\nVOLTAR _0_\n");
+        printf("\n||---------------------------||\n||           PLANOS          ||\n||                           ||\n||VISUALIZAR PLANOS        1 ||\n||EDITAR PLANOS            2 ||\n||CADASTRAR PLANOS         3 ||\n||REMOVER PLANOS           4 ||\n||                           ||\n||VOLTAR                   0 ||\n||---------------------------||\n\n");
         scanf("%i", &opc);
         if(opc!=0 && opc!=1 && opc!=2 && opc!=3 && opc!=4){printf("\nERRO!!\n"); opc=5;}
     }
@@ -207,20 +224,26 @@ void menuPlanos()
         //remover planos
     }
 
+    system("cls");
+
     return;
 }
 
 void menuRelatorios()
 {
+
+    system("cls");
     
     int opc=5;
 
     while(opc==5)
     {
-        printf("\nRELATÓRIO DE CLIENTES CADASTRADOS _1_\nRELATÓRIO DE CLIENTES NÃO CADASTRADOS _2_\nRELATÓRIO DE VAGAS _3_\nRELATÓRIO DIÁRIO _4_\nVOLTAR _0_\n");
+        printf("\n||----------------------------------------||\n||               RELATÓRIOS               ||\n||                                        ||\n||RELATÓRIO DE CLIENTES CADASTRADOS     1 ||\n||RELATÓRIO DE CLIENTES NÃO CADASTRADOS 2 ||\n||RELATÓRIO DE VAGAS                    3 ||\n||RELATÓRIO DIÁRIO                      4 ||\n||                                        ||\n||VOLTAR                                0 ||\n||----------------------------------------||\n\n");
         scanf("%i", &opc);
         if(opc!=0 && opc!=1 && opc!=2 && opc!=3 && opc!=4){printf("\nERRO!!\n"); opc=5;}
     }
+
+    system("cls");
 
     return;
 }
