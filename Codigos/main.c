@@ -18,39 +18,39 @@
     double custoHora=10.0;
 //Fim Var Global
 
-//Funções de menu
+//Funï¿½ï¿½es de menu
 void menuClientes();
 void menuVagas();
 void menuPlanos();
 void menuRelatorios();
-//Fim funções de menu
+//Fim funï¿½ï¿½es de menu
 
-//Funções relacionadas a planos
+//Funï¿½ï¿½es relacionadas a planos
 void regPlano();
-//Fim das funções relacionadas a planos
+//Fim das funï¿½ï¿½es relacionadas a planos
 
-//Funções relacionadas a vagas
+//Funï¿½ï¿½es relacionadas a vagas
 void testeVagas();
 void atualizarVagas();
-//Fim das funções relacionadas a vagas
+//Fim das funï¿½ï¿½es relacionadas a vagas
 
-//Funções relacionadas a clientes
+//Funï¿½ï¿½es relacionadas a clientes
 void regCliente();
-//Fim das funções relacionadas a clientes
+//Fim das funï¿½ï¿½es relacionadas a clientes
 
-//Funções relacionadas a entrada/saída
+//Funï¿½ï¿½es relacionadas a entrada/saï¿½da
 void entradaSemCad();
 void entradaCad();
 void horarioDeSaida();
 void calcHora();
 void saida();
-//Fim das funções relacionadas a entrada/saída
+//Fim das funï¿½ï¿½es relacionadas a entrada/saï¿½da
 
 int menuFunc()
 {
     int menuOps;
 
-    printf("\n||----------------||\n||      MENU      ||\n||                ||\n||ENTRADA       1 ||\n||SAÍDA         2 ||\n||GERENCIAR     3 ||\n||                ||\n||FECHAR        0 ||\n||----------------||\n\n");
+    printf("\n||----------------||\n||      MENU      ||\n||                ||\n||ENTRADA       1 ||\n||SAï¿½DA         2 ||\n||GERENCIAR     3 ||\n||                ||\n||FECHAR        0 ||\n||----------------||\n\n");
     scanf("%i",&menuOps);
 
     return menuOps;
@@ -65,7 +65,7 @@ void entrada()
 
     while(opc==3)
     {
-        printf("\n||---------------------------||\n||          ENTRADA          ||\n||                           ||\n||CLIENTE CADASTRADO       1 ||\n||CLIENTE NÃO CADASTRADO   2 ||\n||                           ||\n||VOLTAR                   0 ||\n||---------------------------||\n\n");
+        printf("\n||---------------------------||\n||          ENTRADA          ||\n||                           ||\n||CLIENTE CADASTRADO       1 ||\n||CLIENTE Nï¿½O CADASTRADO   2 ||\n||                           ||\n||VOLTAR                   0 ||\n||---------------------------||\n\n");
         scanf("%i", &opc);
         if(opc!=0 && opc!=1 && opc!=2){printf("\nERRO!!\n"); opc=3;}
     }
@@ -97,7 +97,7 @@ void gerenciamento()
 
         while(opc==5)
         {
-            printf("\n||---------------------------||\n||        GERECIAMENTO       ||\n||                           ||\n||CLIENTES                 1 ||\n||VAGAS                    2 ||\n||PLANOS                   3 ||\n||RELATÓRIOS               4 ||\n||                           ||\n||VOLTAR                   0 ||\n||---------------------------||\n\n");
+            printf("\n||---------------------------||\n||        GERECIAMENTO       ||\n||                           ||\n||CLIENTES                 1 ||\n||VAGAS                    2 ||\n||PLANOS                   3 ||\n||RELATï¿½RIOS               4 ||\n||                           ||\n||VOLTAR                   0 ||\n||---------------------------||\n\n");
             scanf("%i", &opc);
             if(opc!=0 && opc!=1 && opc!=2 && opc!=3 && opc!=4){printf("\nERRO!!\n"); opc=5;}
         }
@@ -149,15 +149,27 @@ void menuClientes()
     }
     else if(opc==2)
     {
-        //editar plano de cliente
+        //editar plano de cliente 
     }
     else if(opc==3)
     {
-        //remover cadastro
+        //remover cadastro Carlos
     }
     else if(opc==4)
     {
-        //vizualizar clientes
+        //vizualizar clientes Gabi
+        cliente p;
+        char arquivoPlaca[13];
+
+        printf("Digite a placa do carro: \n");
+        scanf("%s", p.placaCarro);
+
+        snprintf(arquivoPlaca, sizeof(arquivoPlaca), "%s.txt", arquivoPlaca);
+
+         FILE *f;
+        f= fopen(arquivoPlaca, "r");
+        if(f==NULL){printf("ERRO!!");};
+        
     }
 
     system("cls");
@@ -185,7 +197,8 @@ void menuVagas()
     }
     else if(opc==2)
     {
-        //visualizar vagas
+    
+
     }
 
     system("cls");
@@ -209,11 +222,28 @@ void menuPlanos()
 
     if(opc==1)
     {
-        //visualizar planos
+        //visualizar planos Gabi
+        int i;
+
+        do{
+                    printf("Vizualizacao dos planos: ");
+        printf("Plano 1: \n R$29,99 Mensal. \n");
+        printf("Plano 2: \n R$74,97 6 Meses. \n");
+        printf("Plano 3: \n R$187,42 Anual. \n");
+        printf("Plano 4: \n R$374,84 DuraÃ§Ã£o de 2 Anos. \n\n");
+        getchar();
+
+        printf("Digite 1 para sair. \n");
+        scanf("%d", &i);
+         if(i==1){
+            printf("Saindo da vizualizacao de planos.");
+        }else   {printf("digite o valor valido!\n");}
+        }while(i!=1);
+
     }
     else if(opc==2)
     {
-        //editar planos
+        //editar planos Carlos
     }
     else if(opc==3)
     {
@@ -221,7 +251,7 @@ void menuPlanos()
     }
     else if(opc==4)
     {
-        //remover planos
+        //remover planos Carlos
     }
 
     system("cls");
@@ -238,7 +268,7 @@ void menuRelatorios()
 
     while(opc==5)
     {
-        printf("\n||----------------------------------------||\n||               RELATÓRIOS               ||\n||                                        ||\n||RELATÓRIO DE CLIENTES CADASTRADOS     1 ||\n||RELATÓRIO DE CLIENTES NÃO CADASTRADOS 2 ||\n||RELATÓRIO DE VAGAS                    3 ||\n||RELATÓRIO DIÁRIO                      4 ||\n||                                        ||\n||VOLTAR                                0 ||\n||----------------------------------------||\n\n");
+        printf("\n||----------------------------------------||\n||               RELATï¿½RIOS               ||\n||                                        ||\n||RELATï¿½RIO DE CLIENTES CADASTRADOS     1 ||\n||RELATï¿½RIO DE CLIENTES Nï¿½O CADASTRADOS 2 ||\n||RELATï¿½RIO DE VAGAS                    3 ||\n||RELATï¿½RIO DIï¿½RIO                      4 ||\n||                                        ||\n||VOLTAR                                0 ||\n||----------------------------------------||\n\n");
         scanf("%i", &opc);
         if(opc!=0 && opc!=1 && opc!=2 && opc!=3 && opc!=4){printf("\nERRO!!\n"); opc=5;}
     }
@@ -285,7 +315,7 @@ int main()
     return 0;
 }
 
-//Definição de funções relacionadas a planos
+//Definiï¿½ï¿½o de funï¿½ï¿½es relacionadas a planos
 void regPlano()
 {
 
@@ -296,7 +326,7 @@ void regPlano()
 
     system("cls");
 
-    printf("Qual o desconto seu plano irá ofertar?\n");
+    printf("Qual o desconto seu plano irï¿½ ofertar?\n");
     scanf("%d", &regisPlano.descontoPlano);
 
     system("cls");
@@ -314,9 +344,9 @@ void regPlano()
 
     return;
 }
-//Fim das funções relacionadas a planos
+//Fim das funï¿½ï¿½es relacionadas a planos
 
-//Definição de funções relacionadas a clientes
+//Definiï¿½ï¿½o de funï¿½ï¿½es relacionadas a clientes
 void regCliente()
 {
 
@@ -338,7 +368,7 @@ void regCliente()
     fflush(stdin);
     system("cls");
 
-    printf("\nDigite o identificador do plano do cliente para cadastro (Digite 0 para padrão): ");
+    printf("\nDigite o identificador do plano do cliente para cadastro (Digite 0 para padrï¿½o): ");
     scanf("%i", &regisCliente.idPlanoCliente);
 
     fflush(stdin);
@@ -360,9 +390,9 @@ void regCliente()
 
     return;
 }
-//Fim das funções relacionadas a clientes
+//Fim das funï¿½ï¿½es relacionadas a clientes
 
-//Definição de funções relacionadas a vagas
+//Definiï¿½ï¿½o de funï¿½ï¿½es relacionadas a vagas
 void testeVagas()
 {
 
@@ -384,7 +414,7 @@ void testeVagas()
         while (op==0)
         {
 
-            printf("\nEsta é a sua primeira vez abrindo o nosso sistema!!\nPor padrão definimos 50 vagas de capacidade no estacionamento.\n\nGostaria de alterar esse valor? 1/sim e 2/não\n");
+            printf("\nEsta ï¿½ a sua primeira vez abrindo o nosso sistema!!\nPor padrï¿½o definimos 50 vagas de capacidade no estacionamento.\n\nGostaria de alterar esse valor? 1/sim e 2/nï¿½o\n");
             scanf("%i", &op);
             
             if(op==1)
@@ -403,7 +433,7 @@ void testeVagas()
 
                 system("cls");
 
-                printf("\nQuanto custará a hora hoje?\n");
+                printf("\nQuanto custarï¿½ a hora hoje?\n");
                 scanf("%lf", &custoHora);
 
                 system("cls");
@@ -422,7 +452,7 @@ void testeVagas()
 
                 system("cls");
 
-                printf("\nQuanto custará a hora hoje?\n");
+                printf("\nQuanto custarï¿½ a hora hoje?\n");
                 scanf("%lf", &custoHora);
 
                 system("cls");
@@ -441,7 +471,7 @@ void testeVagas()
     {
         system("cls");
 
-        printf("\nQuanto custará a hora hoje?\n");
+        printf("\nQuanto custarï¿½ a hora hoje?\n");
         scanf("%lf", &custoHora);
 
         system("cls");
@@ -457,7 +487,7 @@ void atualizarVagas()
 
     system("cls");
 
-    printf("Atualmente seu estacionamento conta com %i vagas.\nQuantas vagas você deseja utilizar: ", vagasTotais);
+    printf("Atualmente seu estacionamento conta com %i vagas.\nQuantas vagas vocï¿½ deseja utilizar: ", vagasTotais);
     scanf("%i", &vagasTotais);
 
     FILE *f;
@@ -470,9 +500,9 @@ void atualizarVagas()
 
     return;
 }
-//Fim das funções relacionadas a vagas
+//Fim das funï¿½ï¿½es relacionadas a vagas
 
-//Definição de funções relacionadas a entrada/saída
+//Definiï¿½ï¿½o de funï¿½ï¿½es relacionadas a entrada/saï¿½da
 void entradaSemCad()
 {
     
@@ -494,7 +524,7 @@ void entradaSemCad()
     fflush(stdin);
     system("cls");
 
-    printf("\nDigite o identificador do plano do cliente para cadastro (Digite 0 para padrão): ");
+    printf("\nDigite o identificador do plano do cliente para cadastro (Digite 0 para padrï¿½o): ");
     scanf("%i", &regisCliente.idPlanoCliente);
 
     fflush(stdin);
@@ -712,4 +742,4 @@ void saida()
     return;
 }
 
-//Fim das funções relacionadas a entrada/saída
+//Fim das funï¿½ï¿½es relacionadas a entrada/saï¿½da
