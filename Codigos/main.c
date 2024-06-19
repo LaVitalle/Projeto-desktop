@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 //Var Global
     struct cliente {char cpfCliente[12]; char placaCarro[9]; int idPlanoCliente; int status;}; typedef struct cliente cliente;
@@ -23,7 +24,14 @@ void menuClientes();
 void menuVagas();
 void menuPlanos();
 void menuRelatorios();
+<<<<<<< HEAD
 //Fim funï¿½ï¿½es de menu
+=======
+void gerenciamento();
+void entrada();
+int menuFunc();
+//Fim funções de menu
+>>>>>>> 7878c33b57b87ec164f187cf99d1a8f2639a4ef0
 
 //Funï¿½ï¿½es relacionadas a planos
 void regPlano();
@@ -45,6 +53,44 @@ void horarioDeSaida();
 void calcHora();
 void saida();
 //Fim das funï¿½ï¿½es relacionadas a entrada/saï¿½da
+
+//Definição das funções dos menus
+int main()
+{
+    setlocale(LC_ALL, "Portuguese");
+
+    int menu=0, menuOps;
+
+    system("cls");
+
+    testeVagas();
+
+    while(menu==0)
+    {
+        
+        menuOps=menuFunc();
+
+        if(menuOps==1)
+        {
+            entrada();
+        }
+        else if(menuOps==2)
+        {
+            saida();
+        }
+        else if(menuOps==3)
+        {
+            gerenciamento();
+        }
+        else if(menuOps==0)
+        {
+            menu=1;
+        }
+
+    }
+
+    return 0;
+}
 
 int menuFunc()
 {
@@ -277,43 +323,7 @@ void menuRelatorios()
 
     return;
 }
-
-int main()
-{
-    setlocale(LC_ALL, "Portuguese");
-
-    int menu=0, menuOps;
-
-    system("cls");
-
-    testeVagas();
-
-    while(menu==0)
-    {
-        
-        menuOps=menuFunc();
-
-        if(menuOps==1)
-        {
-            entrada();
-        }
-        else if(menuOps==2)
-        {
-            saida();
-        }
-        else if(menuOps==3)
-        {
-            gerenciamento();
-        }
-        else if(menuOps==0)
-        {
-            menu=1;
-        }
-
-    }
-
-    return 0;
-}
+//Fim das funções dos menus
 
 //Definiï¿½ï¿½o de funï¿½ï¿½es relacionadas a planos
 void regPlano()
