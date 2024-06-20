@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 
 //Var Global
     struct cliente {char cpfCliente[12]; char placaCarro[9]; int idPlanoCliente; int status;}; typedef struct cliente cliente;
@@ -24,14 +23,7 @@ void menuClientes();
 void menuVagas();
 void menuPlanos();
 void menuRelatorios();
-<<<<<<< HEAD
 //Fim funï¿½ï¿½es de menu
-=======
-void gerenciamento();
-void entrada();
-int menuFunc();
-//Fim funções de menu
->>>>>>> 7878c33b57b87ec164f187cf99d1a8f2639a4ef0
 
 //Funï¿½ï¿½es relacionadas a planos
 void regPlano();
@@ -53,44 +45,6 @@ void horarioDeSaida();
 void calcHora();
 void saida();
 //Fim das funï¿½ï¿½es relacionadas a entrada/saï¿½da
-
-//Definição das funções dos menus
-int main()
-{
-    setlocale(LC_ALL, "Portuguese");
-
-    int menu=0, menuOps;
-
-    system("cls");
-
-    testeVagas();
-
-    while(menu==0)
-    {
-        
-        menuOps=menuFunc();
-
-        if(menuOps==1)
-        {
-            entrada();
-        }
-        else if(menuOps==2)
-        {
-            saida();
-        }
-        else if(menuOps==3)
-        {
-            gerenciamento();
-        }
-        else if(menuOps==0)
-        {
-            menu=1;
-        }
-
-    }
-
-    return 0;
-}
 
 int menuFunc()
 {
@@ -204,17 +158,51 @@ void menuClientes()
     else if(opc==4)
     {
         //vizualizar clientes Gabi
-        cliente p;
-        char arquivoPlaca[13];
+    cliente regisCliente;
+    char arquivoPlaca[13];
+    regisCliente.status=13;
+    int N;
 
-        printf("Digite a placa do carro: \n");
-        scanf("%s", p.placaCarro);
+    system("cls");
 
-        snprintf(arquivoPlaca, sizeof(arquivoPlaca), "%s.txt", arquivoPlaca);
+    printf("\nDigite a placa do carro: ");
+    scanf("%8s", regisCliente.placaCarro);
+    
+    fflush(stdin);
+    system("cls");
 
-         FILE *f;
-        f= fopen(arquivoPlaca, "r");
-        if(f==NULL){printf("ERRO!!");};
+    snprintf(arquivoPlaca, sizeof(arquivoPlaca), "%s.txt", regisCliente.placaCarro);
+
+    FILE *f;
+    f = fopen(arquivoPlaca, "w");
+    if(f==NULL){printf("ERRO!!");}
+
+    printf("Dados da placa %d \n", regisCliente.placaCarro);
+    fprintf(f, "%s", regisCliente.cpfCliente);
+    fprintf(f, " ");
+    fprintf(f, "%i", regisCliente.idPlanoCliente);
+    fprintf(f, " ");
+    fprintf(f, "%i", regisCliente.status);
+
+    printf("Pressione 1 para sair \n");
+    scanf("%d", &N);
+    
+    switch (N)
+    {
+    case 1:
+
+    N==1;
+    printf("Saindo da vizualizacao \n");
+    break;
+    
+    default:
+    N!=1;
+    printf("Digite o numero correto para sair");
+    }
+
+    fclose(f);
+
+    return;
         
     }
 
@@ -268,11 +256,11 @@ void menuPlanos()
 
     if(opc==1)
     {
-        //visualizar planos Gabi
+        //vizualizacao planos Gabi
         int i;
 
         do{
-                    printf("Vizualizacao dos planos: ");
+        printf("Vizualizacao dos planos: ");
         printf("Plano 1: \n R$29,99 Mensal. \n");
         printf("Plano 2: \n R$74,97 6 Meses. \n");
         printf("Plano 3: \n R$187,42 Anual. \n");
@@ -319,11 +307,49 @@ void menuRelatorios()
         if(opc!=0 && opc!=1 && opc!=2 && opc!=3 && opc!=4){printf("\nERRO!!\n"); opc=5;}
     }
 
+    //relatorios
+
     system("cls");
 
     return;
 }
-//Fim das funções dos menus
+
+int main()
+{
+    setlocale(LC_ALL, "Portuguese");
+
+    int menu=0, menuOps;
+
+    system("cls");
+
+    testeVagas();
+
+    while(menu==0)
+    {
+        
+        menuOps=menuFunc();
+
+        if(menuOps==1)
+        {
+            entrada();
+        }
+        else if(menuOps==2)
+        {
+            saida();
+        }
+        else if(menuOps==3)
+        {
+            gerenciamento();
+        }
+        else if(menuOps==0)
+        {
+            menu=1;
+        }
+
+    }
+
+    return 0;
+}
 
 //Definiï¿½ï¿½o de funï¿½ï¿½es relacionadas a planos
 void regPlano()
