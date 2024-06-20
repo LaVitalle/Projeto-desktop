@@ -157,7 +157,7 @@ void menuClientes()
     }
     else if(opc==4)
     {
-        //vizualizar clientes Gabi
+        
     cliente regisCliente;
     char arquivoPlaca[13];
     regisCliente.status=13;
@@ -184,21 +184,6 @@ void menuClientes()
     fprintf(f, " ");
     fprintf(f, "%i", regisCliente.status);
 
-    printf("Pressione 1 para sair \n");
-    scanf("%d", &N);
-    
-    switch (N)
-    {
-    case 1:
-
-    N==1;
-    printf("Saindo da vizualizacao \n");
-    break;
-    
-    default:
-    N!=1;
-    printf("Digite o numero correto para sair");
-    }
 
     fclose(f);
 
